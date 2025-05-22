@@ -63,8 +63,7 @@ modelo.compile(
     metrics = ['accuracy']
 )
 
-#How training with small lote
-
+    #How training with small lote
 num_ej_entrenamiento = metadatos.splits['train'].num_examples
 num_ej_pruebas = metadatos.splits["test"].num_examples
 # print(num_ej_entrenamiento, num_ej_pruebas)
@@ -74,3 +73,5 @@ datos_entrenamiento = datos_entrenamiento.repeat().shuffle(num_ej_entrenamiento)
 datos_pruebas = datos_pruebas.batch(tamano_lote)
 
 
+#Training 
+historial = modelo.fit(datos_entrenamiento, epochs = 10, steps_per_epoch = math.ceil(num_ej_entrenamiento/tamano_lote))
