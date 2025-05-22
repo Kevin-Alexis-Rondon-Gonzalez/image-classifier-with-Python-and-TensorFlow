@@ -1,6 +1,7 @@
 import tensorflow as tf 
 import tensorflow_datasets as tfds  #Data to training 
 import matplotlib.pyplot as plt
+import math
 
 datos, metadatos = tfds.load('fashion_mnist', as_supervised = True, with_info = True)
 
@@ -48,9 +49,28 @@ plt.show()
 
 #Create Model
 
-modelo = tf.kera.Sequential([
-    tf.kera.layer.Flatten (input_shape = (28,28,1)), #1 black adn whitE, 28X28 is the image size
-    tf.keras.layer.Dense(50, activation = tf.nn.relu),
-    tf.keras.layer.Dense(50, activation = tf.nn.relu),
-    tf.keras.layer.Dense(10, activation = tf.nn.softmax), #for sorting networks
+modelo = tf.keras.Sequential([
+    tf.keras.layers.Flatten (input_shape = (28,28,1)), #1 black adn whitE, 28X28 is the image size
+    tf.keras.layers.Dense(50, activation = tf.nn.relu),
+    tf.keras.layers.Dense(50, activation = tf.nn.relu),
+    tf.keras.layers.Dense(10, activation = tf.nn.softmax) #for sorting networks
 ])
+
+# Compile Model
+modelo.compile(
+    optimizer = 'adam',
+    loss = tf.keras.losses.SparseCategoricalCrossentropy(),
+    metrics = ['accuracy']
+)
+
+#How training with small lote
+
+num_ej_entrenamiento = metadatos.splits['train'].num_examples
+num_ej_pruebas = metadatos.splits["test"].num_examples
+# print(num_ej_entrenamiento, num_ej_pruebas)
+
+tamano_lote = 32
+datos_entrenamiento = datos_entrenamiento.repeat().shuffle(num_ej_entrenamiento).batch(tamano_lote)
+datos_pruebas = datos_pruebas.batch(tamano_lote)
+
+
