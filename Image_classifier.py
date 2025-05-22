@@ -45,3 +45,12 @@ for i, (imagen, etiqueta) in enumerate(datos_entrenamiento.take(25)):
     plt.imshow(imagen, cmap=plt.cm.binary)
     plt.xlabel(nombres_clases[etiqueta])
 plt.show()
+
+#Create Model
+
+modelo = tf.kera.Sequential([
+    tf.kera.layer.Flatten (input_shape = (28,28,1)), #1 black adn whitE, 28X28 is the image size
+    tf.keras.layer.Dense(50, activation = tf.nn.relu),
+    tf.keras.layer.Dense(50, activation = tf.nn.relu),
+    tf.keras.layer.Dense(10, activation = tf.nn.softmax), #for sorting networks
+])
