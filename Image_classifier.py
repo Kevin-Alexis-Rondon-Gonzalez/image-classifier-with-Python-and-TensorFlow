@@ -75,3 +75,9 @@ datos_pruebas = datos_pruebas.batch(tamano_lote)
 
 #Training 
 historial = modelo.fit(datos_entrenamiento, epochs = 10, steps_per_epoch = math.ceil(num_ej_entrenamiento/tamano_lote))
+
+#find loss
+plt.xlabel('# Epoca')
+plt.ylabel('Magnitud de perdida')
+plt.plot(historial.history["loss"])
+plt.show()
